@@ -1,0 +1,155 @@
+* {
+	background: maroon;
+	text-fill: gold;
+	margin: 0;
+	padding: 0;
+}
+
+
+#rotation-arm {
+	-webkit-transform-origin: bottom;
+	-ms-transform-origin: bottom;
+	transform-origin: bottom;
+}
+
+#velocity-arm {
+	-webkit-transform-origin: bottom;
+	-ms-transform-origin: bottom;
+	transform-origin: bottom;
+}
+
+#velocity-arm-rect {
+	-webkit-transform-origin: bottom;
+	-ms-transform-origin: bottom;
+	transform-origin: bottom;
+}
+
+/*********************** AUTONOMOUS ***********************************************************/
+#auto-chooser {
+	font-size: 20px; 
+	height: 70px; 
+	align: center;
+	
+	margin: auto;
+	border: 15px solid transparent;
+	-moz-border-image: -moz-linear-gradient(top, #3acfd5 0%, #3a4ed5 100%);
+	-webkit-border-image: -webkit-linear-gradient(top, #3acfd5 0%, #3a4ed5 100%);
+	border-image: linear-gradient(to bottom, #3acfd5 0%, #3a4ed5 100%);
+
+	border-image-slice: 1;
+}
+
+.auto-body {
+	margin-top: 10px;
+	color: gold;
+}
+
+.auto-selection-box {
+	width: 75%;
+	height: 50%;
+	margin: auto;
+	align: center;
+	
+	border: 15px solid transparent;
+	-moz-border-image: -moz-linear-gradient(top, #3acfd5 0%, #3a4ed5 100%);
+	-webkit-border-image: -webkit-linear-gradient(top, #3acfd5 0%, #3a4ed5 100%);
+	border-image: linear-gradient(to bottom, #3acfd5 0%, #3a4ed5 100%);
+	
+	border-image-slice: 1;
+}
+
+/* the enabled status for autonomous config options*/
+.auto-left {
+	display: block;
+}
+
+.auto-center {
+	display: block;
+}
+
+.auto-right {
+	display: block;
+}
+
+/* the disabled status for autonomous config options */
+.auto-disabled {
+	display: none;
+}
+
+/************************************************************************************/
+
+/* DO NOT CHANGE ANYTHING BELOW THIS */
+.column {
+	float: left;
+	width: 33.33%;
+}
+
+/* Clear floats after columns */
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.greybox {
+    position: fixed;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0);
+}
+body.login-close > .greybox {
+    display: none
+}
+#login {
+    text-align: center;
+    display: block;
+    margin: 14em auto 0 auto;
+    width: 18em;
+    overflow: hidden;
+    animation: 1s linear;
+    padding: 4px;
+    border-radius: 5px;
+    background-color: #00ffff;
+}
+body.login-close #login {
+    opacity: 1;
+    width: 0;
+    animation: 1s linear;
+}
+#login :disabled {
+    filter: opacity(0.6)
+}
+#login > button{
+    width:6em
+}
+#connect{
+    text-align: center;
+}
+button, input[type="text"], input[type="number"], .select-container, select {
+    color: gold;
+    background: maroon;
+    border: none;
+    font-size: 14px;
+    padding: 6px 8px;
+    cursor: pointer;
+    outline: 0;
+}
+.select-container {
+    padding: 0;
+    display: inline-block;
+}
+select {
+    border: none;
+    background: none;
+    color: gold;
+    height: 25px;
+}
+input[type="text"], input[type="number"] {
+    cursor: text;
+}
+input[type="checkbox"] {
+    -webkit-filter: saturate(0);
+    filter: saturate(0);
+}
