@@ -4,7 +4,7 @@ ipc = require('electron').ipcRenderer;
 
 //define addresses
 let addresses = {
-		rotation: '/cob/rotation/',
+		rotation: '/cob/rotation',
 		position: {
 			x: '/cob/position/x',
 			y: '/cob/position/y'
@@ -19,7 +19,7 @@ let addresses = {
 			climbStatus: '/cob/arm/climb-status'
 		},
 		autonomous: {
-			doSomething: '/cob/autonomous/do-something',
+			emergencyStop: '/cob/autonomous/emergency-stop',
 			side: '/cob/autonomous/side',
 			instructions: '/cob/autonomous/instructions',
 			optimize: '/cob/autonomous/optimize',
@@ -65,9 +65,9 @@ let ui = {
     	leftBox: document.getElementById('auto-left'),
     	centerBox: document.getElementById('auto-center'),
     	rightBox: document.getElementById('auto-right'),
-    	doSomethingCheckbox: document.getElementById('auto-checkbox-do-something'),
     	canvas: document.getElementById('auto-field-canvas'),
     	left: {
+    		doEasiestRadio: document.getElementById('auto-left-choice-easy'),
     		doSwitchRadio: document.getElementById('auto-left-choice-switch'),
     		doScaleRadio: document.getElementById('auto-left-choice-scale'),
     		doBaselineRadio: document.getElementById('auto-left-choice-baseline')
@@ -76,11 +76,13 @@ let ui = {
     		delayCounter: document.getElementById('auto-center-delay')
     	},
     	right: {
+    		doEasiestRadio: document.getElementById('auto-right-choice-easy'),
     		doSwitchRadio: document.getElementById('auto-right-choice-switch'),
     		doScaleRadio: document.getElementById('auto-right-choice-scale'),
     		doBaselineRadio: document.getElementById('auto-right-choice-baseline')
     	},
-    	optimizeCheckbox: document.getElementById('auto-checkbox-optimize')
+    	optimizeCheckbox: document.getElementById('auto-checkbox-optimize'),
+    	emergencyStopCheckbox: document.getElementById('auto-checkbox-emergency-no-auto')
     }
 };
 
@@ -134,8 +136,8 @@ function onRobotConnection(connected) {
         address.disabled = false;
         connect.disabled = false;
         connect.firstChild.data = 'Connect';
-        // Add the default address and select xxxx
-        address.value = '10.6.23.2';
+        // CHANGE THIS VALUE TO YOUR ROBOT'S IP ADDRESS
+        address.value = 'roborio-623-frc.local';
         address.focus();
         address.setSelectionRange(8, 12);
         // On click try to connect and disable the input and the button
@@ -365,48 +367,60 @@ ui.autonomous.optimizeCheckbox.onchange = function() {
 }
 
 //Auto doSomethingCheckbox
-ui.autonomous.doSomethingCheckbox.onchange = function() {
-	NetworkTables.putValue('' + addresses.autonomous.doSomething, ui.autonomous.doSomethingCheckbox.checked);
+ui.autonomous.emergencyStopCheckbox.onchange = function() {
+	NetworkTables.putValue('' + addresses.autonomous.emergencyStop, ui.autonomous.emergencyStopCheckbox.checked);
 	updateAutoOptions();
 	drawField();
 }
 
 //LEFT CONFIG OPTIONS: when changed, update autonomous NetworkTable value and redraw field
 //TODO
+
+ui.autonomous.left.doEasiestRadio.onchange = function() {
+	if (ui.autonomous.left.doEasiestRadio.checked)
+		NetworkTables.putValue('' + addresses.autonomous.instructions, 0)
+}
+
 ui.autonomous.left.doSwitchRadio.onchange = function() {
 	if (ui.autonomous.left.doSwitchRadio.checked)
-		NetworkTables.putValue('' + addresses.autonomous.instructions, 0);
+		NetworkTables.putValue('' + addresses.autonomous.instructions, 1);
 	drawField();
 }
 
 ui.autonomous.left.doScaleRadio.onchange = function() {
 	if (ui.autonomous.left.doScaleRadio.checked)
-		NetworkTables.putValue('' + addresses.autonomous.instructions, 1);
+		NetworkTables.putValue('' + addresses.autonomous.instructions, 2);
 	drawField();
 }
 
 ui.autonomous.left.doBaselineRadio.onchange = function() {
 	if (ui.autonomous.left.doBaselineRadio.checked)
-		NetworkTables.putValue('' + addresses.autonomous.instructions, 2);
+		NetworkTables.putValue('' + addresses.autonomous.instructions, 3);
 	drawField();
 }
 
 //RIGHT CONFIG OPTIONS: when changed, update autonomous NetworkTable value and redraw field
+
+ui.autonomous.right.doEasiestRadio.onchange = function() {
+	if (ui.autonomous.right.doEasiestRadio.checked)
+		NetworkTables.putValue('' + addresses.autonomous.instructions, 0)
+}
+
 ui.autonomous.right.doSwitchRadio.onchange = function() {
 	if (ui.autonomous.right.doSwitchRadio.checked)
-		NetworkTables.putValue('' + addresses.autonomous.instructions, 0);
+		NetworkTables.putValue('' + addresses.autonomous.instructions, 1);
 	drawField();
 }
 
 ui.autonomous.right.doScaleRadio.onchange = function() {
 	if (ui.autonomous.right.doScaleRadio.checked)
-		NetworkTables.putValue('' + addresses.autonomous.instructions, 1);
+		NetworkTables.putValue('' + addresses.autonomous.instructions, 2);
 	drawField();
 }
 
 ui.autonomous.right.doBaselineRadio.onchange = function() {
 	if (ui.autonomous.right.doBaselineRadio.checked)
-		NetworkTables.putValue('' + addresses.autonomous.instructions, 2);
+		NetworkTables.putValue('' + addresses.autonomous.instructions, 3);
 	drawField();
 }
 
@@ -422,7 +436,7 @@ function updateAutoOptions() {
 	let fieldData = NetworkTables.getValue(addresses.fms.field); //String to represent the randomization of field
 	let position = ui.autonomous.autoChooser.selectedIndex - 1; //String to represent autonomous start pos
 	//check all possible permutations and update the board
-	if (ui.autonomous.doSomethingCheckbox.checked) {
+	if (!ui.autonomous.emergencyStopCheckbox.checked) {
 		//left
 		if (position == 0) {
 			//hide all right & center config options
@@ -460,7 +474,7 @@ function updateAutoOptions() {
 		context.fillStyle = "green";
 		context.fill();
 		//then draw the arrow pointing to the switch we want to go to
-		if (ui.autonomous.doSomethingCheckbox.checked) {
+		if (!ui.autonomous.emergencyStopCheckbox.checked) {
 			if (isOurs(0,0) === true) {
 				//left case
 				

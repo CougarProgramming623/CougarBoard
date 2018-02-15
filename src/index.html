@@ -44,21 +44,23 @@
 			</select>
 			<div id="auto-field-config" style="font-size:300%; text-align:center; color:gold">000</div>
 			<div class="auto-selection-box">
-				<input class="auto-body" id="auto-checkbox-do-something" type="checkbox" checked>
-				<label class="auto-body" for="auto-checkbox-do-something">Do something</label>
 				<!-- LEFT AUTO OPTIONS -->
 				<div id="auto-left" class="auto-left">
 					<div style="display: block;">
+						<input id="auto-left-choice-easy" type="radio" name="auto-left-choice-mode">
+						<label class="auto-body" for="auto-left-choice-easy">Do Easy</label>
+					</div>
+					<div style="display: block;">
 						<input id="auto-left-choice-switch" type="radio" name="auto-left-choice-mode">
-						<label class="auto-body" for="auto-left-choice-switch">1) Switch 2) Scale 3) Drive Only</label>
+						<label class="auto-body" for="auto-left-choice-switch">Force Switch</label>
 					</div>
 					<div style="display: block;">
 						<input id="auto-left-choice-scale" type="radio" name="auto-left-choice-mode">
-						<label class="auto-body" for="auto-left-choice-scale">1) Scale 2) Drive Only</label>
+						<label class="auto-body" for="auto-left-choice-scale">Force Scale</label>
 					</div>
 					<div style="display: block;">
 						<input id="auto-left-choice-baseline" type="radio" name="auto-left-choice-mode">
-						<label class="auto-body" for="auto-left-choice-baseline">1) Drive Only</label>
+						<label class="auto-body" for="auto-left-choice-baseline">Only Baseline</label>
 					</div>
 				</div>
 				<!-- CENTER AUTO OPTIONS -->
@@ -71,21 +73,29 @@
 				<!-- RIGHT AUTO OPTIONS -->
 				<div id="auto-right" class="auto-right">
 					<div style="display: block;">
+						<input id="auto-right-choice-easy" type="radio" name="auto-right-choice-mode">
+						<label class="auto-body" for="auto-right-choice-easy">Do Easy</label>
+					</div>
+					<div style="display: block;">
 						<input id="auto-right-choice-switch" type="radio" name="auto-right-choice-mode">
-						<label class="auto-body" for="auto-right-choice-switch">1) Switch 2) Scale 3) Drive Only</label>
+						<label class="auto-body" for="auto-right-choice-switch">Force Switch</label>
 					</div>
 					<div style="display: block;">
 						<input id="auto-right-choice-scale" type="radio" name="auto-right-choice-mode">
-						<label class="auto-body" for="auto-right-choice-scale">1) Scale 2) Drive Only</label>
+						<label class="auto-body" for="auto-right-choice-scale">Force Scale</label>
 					</div>
 					<div style="display: block;">
 						<input id="auto-right-choice-baseline" type="radio" name="auto-right-choice-mode">
-						<label class="auto-body" for="auto-right-choice-baseline">1) Drive Only</label>
+						<label class="auto-body" for="auto-right-choice-baseline">Only Baseline</label>
 					</div>
 				</div>
 				<div style="display: block;">
 					<input class="auto-body" id="auto-checkbox-optimize" type="checkbox" checked>
 					<label class="auto-body" for="auto-checkbox-optimize">Optimize for TeleOp</label>
+				</div>
+				<div style="display: block">
+					<input class="auto-body" id="auto-checkbox-emergency-no-auto" type="checkbox">
+					<label class="auto-body" for="auto-checkbox-emergency-no-auto">EMERGENCY NO AUTO</label>
 				</div>
 				<button onclick="sendAutoData()">Test Auto</button>
 			</div>
